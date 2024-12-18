@@ -1,4 +1,5 @@
 import { cn } from '@/utils/classnames'
+import { ThumbsDown, ThumbsUp } from 'lucide-react'
 
 export const Votes = ({
   userId,
@@ -20,16 +21,16 @@ export const Votes = ({
           userId && upvotes.includes(userId) && 'text-primary',
         )}
       >
-        ⬆︎
+        <ThumbsUp className='w-5' />
       </button>
-      <span className='min-w-8 text-center'>{score}</span>
+      <span className='min-w-1 text-center'>{score}</span>
       <button
         className={cn(
           'button-tertiary',
           userId && downvotes.includes(userId) && 'text-primary',
         )}
       >
-        ⬇︎
+        <ThumbsDown className='w-5' />
       </button>
     </div>
   )

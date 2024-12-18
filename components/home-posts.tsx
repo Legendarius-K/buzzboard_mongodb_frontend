@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { type HomepagePostsData } from '@/lib/schemas'
 import { getPosts } from '@/lib/queries'
 import { Votes } from './votes'
+import { User } from 'lucide-react'
 
 export const HomePosts = ({
   initialData,
@@ -34,14 +35,14 @@ export const HomePosts = ({
   const currentPosts = data.pages.map((page) => page?.posts || []).flat()
 
   return (
-    <section className='flex flex-col items-center gap-4'>
+    <section className='flex flex-col items-center gap-10'>
       {currentPosts.map(({ id, title, author, score, upvotes, downvotes }) => (
         <Link
           key={id}
           href={`/post/${id}`}
-          className='flex w-full flex-col rounded-3xl bg-white p-4'
+          className='flex w-full flex-col rounded-xl bg-white p-4'
         >
-          <span className='text-zinc-600'>{author.username}</span>
+          <span className='text-zinc-600 flex items-center gap-2'><User className='w-4'/>{author.username}</span>
           <h2 className='text-lg font-bold'>{title}</h2>
           <Votes
             postId={id}

@@ -61,3 +61,4 @@ export const homepagePostsSchema = z.object({
 })
 
 export type HomepagePostsData = z.infer<typeof homepagePostsSchema>
+
