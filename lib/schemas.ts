@@ -40,8 +40,10 @@ export const postPageSchema = z.object({
     z.object({
       author: z.object({
         username: z.string(),
+        _id: z.string(),
       }),
       content: z.string(),
+      _id: z.string()
     }),
   ),
   author: z.object({

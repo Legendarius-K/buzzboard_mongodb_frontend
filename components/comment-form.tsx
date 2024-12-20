@@ -9,10 +9,10 @@ import { handleServerActionError, toastServerError } from '@/lib/error-handling'
 import { FieldError } from '@/components/field-error'
 import { createComment } from '@/actions/create-comment'
 
-export const CreateCommentForm = ({ postId } : {postId: string}) => {
+export const CreateCommentForm = ({ postId }: { postId: string }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: CommentData) => {
-      handleServerActionError(await createComment(values, postId )) //ändra function
+      handleServerActionError(await createComment(values, postId)) // Modify function as needed
     },
     onError: toastServerError,
   })
@@ -20,15 +20,21 @@ export const CreateCommentForm = ({ postId } : {postId: string}) => {
   const {
     register,
     handleSubmit,
+    reset, // Add reset function from useForm
     formState: { errors },
   } = useForm<CommentData>({
     resolver: zodResolver(commentSchema),
   })
 
+  const onSubmit = (values: CommentData) => {
+    mutate(values) // Trigger mutation
+    reset() // Reset form after submission
+  }
+
   return (
     <form
-      onSubmit={handleSubmit((values) => mutate(values))}
-      className='flex w-full flex-col gap-4 my-10'
+      onSubmit={handleSubmit(onSubmit)}
+      className='my-10 flex w-full flex-col gap-4'
     >
       <textarea
         {...register('content')}

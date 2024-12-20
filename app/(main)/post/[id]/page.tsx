@@ -7,6 +7,7 @@ import { DeletePostButton } from '@/components/delete-post-button'
 import { User } from 'lucide-react'
 import { commentSchema } from '@/lib/schemas'
 import { CreateCommentForm } from '@/components/comment-form'
+import { DeleteCommentButton } from '@/components/delete-comment-button'
 
 export const revalidate = 60 * 15 // 15 min
 
@@ -24,6 +25,7 @@ export default async function PostPage({
 
   const user = await auth.getUser()
   const isAuthor = user && user.id === post.author.id
+  // const isCommentAuthor = user && user.id === post.comments.filter()
 
   return (
     <main className='main p-6'>
@@ -47,14 +49,16 @@ export default async function PostPage({
         </header>
         <p>{post.content}</p>
       </article>
-      <CreateCommentForm postId={post.id}/>
-      {post.comments?.map((comment, index) => (
-        <div className='m-2 rounded bg-white p-4' key={index}>
+      {user && <CreateCommentForm postId={post.id}/>}
+      {post.comments && post.comments.length > 0 && post.comments?.map((comment, index) => (
+        <div className='m-2 rounded bg-white p-4 relative' key={index}>
           <h2 className='flex items-center gap-2'>
             <User className='w-4' />
             {comment.author.username}
           </h2>
           <p>{comment.content}</p>
+
+          {(isAuthor || user?.id === comment.author._id) && <DeleteCommentButton postId={post.id} commentId={comment._id}/>}
         </div>
       ))}
     </main>

@@ -7,11 +7,13 @@ export const getPost = async (id: string) => {
 
     const { data, error } = postPageSchema.safeParse(response.data)
     if (error) {
+      console.log(error);
       return null
     }
 
     return data
   } catch {
+
     return null
   }
 }
