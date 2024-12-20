@@ -36,6 +36,14 @@ export const postPageSchema = z.object({
   id: z.string(),
   title: z.string(),
   content: z.string().optional(),
+  comments: z.array(
+    z.object({
+      author: z.object({
+        username: z.string(),
+      }),
+      content: z.string(),
+    }),
+  ),
   author: z.object({
     username: z.string(),
     id: z.string(),
@@ -52,6 +60,14 @@ export const homepagePostsSchema = z.object({
       author: z.object({
         username: z.string(),
       }),
+      comments: z
+        .array(
+          z.object({
+            content: z.string(),
+            author: z.string()
+          }),
+        )
+        .optional(),
       score: z.number(),
       upvotes: z.array(z.string()),
       downvotes: z.array(z.string()),
@@ -62,3 +78,12 @@ export const homepagePostsSchema = z.object({
 
 export type HomepagePostsData = z.infer<typeof homepagePostsSchema>
 
+export const commentSchema = z.object({
+  content: z.string(),
+  // author: z.object({
+  //   username: z.string(),
+  //   id: z.string(),
+  // }),
+})
+
+export type CommentData = z.infer<typeof commentSchema>

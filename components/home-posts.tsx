@@ -7,7 +7,8 @@ import Link from 'next/link'
 import { type HomepagePostsData } from '@/lib/schemas'
 import { getPosts } from '@/lib/queries'
 import { Votes } from './votes'
-import { User } from 'lucide-react'
+import { MessageSquareText, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export const HomePosts = ({
   initialData,
@@ -18,6 +19,9 @@ export const HomePosts = ({
   limit: number
   userId: string | null
 }) => {
+
+  const router = useRouter()
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ['posts'],
@@ -36,23 +40,32 @@ export const HomePosts = ({
 
   return (
     <section className='flex flex-col items-center gap-10'>
-      {currentPosts.map(({ id, title, author, score, upvotes, downvotes }) => (
-        <Link
-          key={id}
-          href={`/post/${id}`}
-          className='flex w-full flex-col rounded-xl bg-white p-4'
-        >
-          <span className='text-zinc-600 flex items-center gap-2'><User className='w-4'/>{author.username}</span>
-          <h2 className='text-lg font-bold'>{title}</h2>
-          <Votes
-            postId={id}
-            userId={userId}
-            score={score}
-            upvotes={upvotes}
-            downvotes={downvotes}
-          />
-        </Link>
-      ))}
+      {currentPosts.map(
+        ({ id, title, author, score, upvotes, downvotes, comments }) => (
+          <div
+            key={id}
+            role='button'
+            onClick={() => router.push(`/post/${id}`)}
+            className='flex w-full flex-col rounded-md bg-white p-4'
+          >
+            <span className='flex items-center gap-2 text-zinc-600'>
+              <User className='w-4' />
+              {author.username}
+            </span>
+            <h2 className='text-lg font-bold'>{title}</h2>
+            <div className='flex items-center mt-4 justify-between'>
+              <Votes
+                postId={id}
+                userId={userId}
+                score={score}
+                upvotes={upvotes}
+                downvotes={downvotes}
+              />
+              <p className='flex items-center gap-2'><MessageSquareText size={18}/>{comments?.length}</p>
+            </div>
+          </div>
+        ),
+      )}
       <Loader
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
