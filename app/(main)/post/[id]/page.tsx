@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getPost } from '@/lib/queries'
 import { auth } from '@/lib/auth'
 import { DeletePostButton } from '@/components/delete-post-button'
-import { User } from 'lucide-react'
+import { Pen, PenIcon, PenLine, User } from 'lucide-react'
 import { commentSchema } from '@/lib/schemas'
 import { CreateCommentForm } from '@/components/comment-form'
 import { DeleteCommentButton } from '@/components/delete-comment-button'
@@ -40,8 +40,11 @@ export default async function PostPage({
           </div>
           {isAuthor && (
             <div className='flex gap-3'>
-              <Link href={`/post/${post.id}/edit`} className='button-secondary'>
-                edit
+              <Link
+                href={`/post/${post.id}/edit`}
+                className='rounded-xl bg-neutral-700 p-2 text-white hover:bg-neutral-500'
+              >
+                <PenLine size={23}/>
               </Link>
               <DeletePostButton postId={post.id} />
             </div>
@@ -49,18 +52,22 @@ export default async function PostPage({
         </header>
         <p>{post.content}</p>
       </article>
-      {user && <CreateCommentForm postId={post.id}/>}
-      {post.comments && post.comments.length > 0 && post.comments?.map((comment, index) => (
-        <div className='m-2 rounded bg-white p-4 relative' key={index}>
-          <h2 className='flex items-center gap-2'>
-            <User className='w-4' />
-            {comment.author.username}
-          </h2>
-          <p>{comment.content}</p>
+      {user && <CreateCommentForm postId={post.id} />}
+      {post.comments &&
+        post.comments.length > 0 &&
+        post.comments?.map((comment, index) => (
+          <div className='relative m-2 rounded bg-white p-4' key={index}>
+            <h2 className='flex items-center gap-2'>
+              <User className='w-4' />
+              {comment.author.username}
+            </h2>
+            <p>{comment.content}</p>
 
-          {(isAuthor || user?.id === comment.author._id) && <DeleteCommentButton postId={post.id} commentId={comment._id}/>}
-        </div>
-      ))}
+            {(isAuthor || user?.id === comment.author._id) && (
+              <DeleteCommentButton postId={post.id} commentId={comment._id} />
+            )}
+          </div>
+        ))}
     </main>
   )
 }

@@ -32,7 +32,7 @@ const queryClient = useQueryClient()
   })
 
   return (
-    <div className=' flex items-center gap-1'>
+    <div className=' flex items-center'>
       <button
         onClick={(event) => {
           event.stopPropagation()
@@ -45,7 +45,7 @@ const queryClient = useQueryClient()
       >
         <ThumbsUp className='w-5' />
       </button>
-      <span className='min-w-1 text-center'>{score}</span>
+      <span className=' text-center'>{score}</span>
       <button
         onClick={(event) => {
           event.stopPropagation()

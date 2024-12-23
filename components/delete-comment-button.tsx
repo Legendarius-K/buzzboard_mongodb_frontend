@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { deletePost } from '@/actions/delete-post'
 import { handleServerActionError, toastServerError } from '@/lib/error-handling'
 import { deleteComment } from '@/actions/delete-comment'
+import { Trash, Trash2 } from 'lucide-react'
 
 export const DeleteCommentButton = ({ postId, commentId }: { postId: string, commentId: string }) => {
   const { mutate, isPending } = useMutation({
@@ -15,8 +16,11 @@ export const DeleteCommentButton = ({ postId, commentId }: { postId: string, com
   })
 
   return (
-    <button onClick={() => mutate()} className='absolute right-3 top-3 text-sm text-white px-[5px] rounded bg-red-600'>
-      {isPending ? 'deleting comment...' : 'X'}
+    <button
+      onClick={() => mutate()}
+      className='absolute right-3 top-3 rounded bg-neutral-700 p-1 text-sm text-white hover:bg-neutral-500'
+    >
+      <Trash2 size={18} />
     </button>
   )
 }
