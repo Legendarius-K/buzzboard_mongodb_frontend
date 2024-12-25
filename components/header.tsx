@@ -11,7 +11,7 @@ export const Header = async () => {
   return (
     <header className='flex h-16 w-full items-center justify-between gap-4 px-4 py-2 md:px-20 bg-neutral-200 shadow-lg'>
       <Link href='/' className='text-2xl font-bold flex items-center'>
-        Schreddit
+        Shreddit
         <Image className='w-10' src={horns} alt='horns'/>
       </Link>
       {user ? (

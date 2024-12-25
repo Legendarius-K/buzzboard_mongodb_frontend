@@ -9,8 +9,8 @@ import './globals.css'
 const albertSans = Albert_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Schreddit',
-  description: 'Schreddit',
+  title: 'Shreddit',
+  description: 'Shreddit',
 }
 
 export default function RootLayout({
