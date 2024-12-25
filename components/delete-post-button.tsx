@@ -4,10 +4,10 @@ import { useMutation } from '@tanstack/react-query'
 
 import { deletePost } from '@/actions/delete-post'
 import { handleServerActionError, toastServerError } from '@/lib/error-handling'
-import { Trash2 } from 'lucide-react'
+import { LoaderPinwheel, Trash2 } from 'lucide-react'
 
 export const DeletePostButton = ({ postId }: { postId: string }) => {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async () => {
       handleServerActionError(await deletePost(postId))
     },
@@ -15,8 +15,11 @@ export const DeletePostButton = ({ postId }: { postId: string }) => {
   })
 
   return (
-    <button onClick={() => mutate()} className='bg-neutral-700 text-white p-2 rounded-xl hover:bg-neutral-500'>
-      <Trash2 size={23} />
+    <button
+      onClick={() => mutate()}
+      className='rounded-xl bg-neutral-700 p-2 text-white hover:bg-neutral-500'
+    >
+      {!isPending ? <Trash2 size={23} /> : <LoaderPinwheel className='animate-spin' size={23} />}
     </button>
   )
 }
