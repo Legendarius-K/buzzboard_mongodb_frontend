@@ -1,14 +1,12 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-
-import { deletePost } from '@/actions/delete-post'
 import { handleServerActionError, toastServerError } from '@/lib/error-handling'
 import { deleteComment } from '@/actions/delete-comment'
-import { Trash, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 
 export const DeleteCommentButton = ({ postId, commentId }: { postId: string, commentId: string }) => {
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async () => {
       handleServerActionError(await deleteComment(postId, commentId))
     },

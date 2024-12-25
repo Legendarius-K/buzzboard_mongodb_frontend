@@ -2,7 +2,6 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
-import Link from 'next/link'
 
 import { type HomepagePostsData } from '@/lib/schemas'
 import { getPosts } from '@/lib/queries'

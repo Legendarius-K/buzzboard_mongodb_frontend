@@ -7,7 +7,7 @@ import { handleServerActionError, toastServerError } from '@/lib/error-handling'
 import { Trash2 } from 'lucide-react'
 
 export const DeletePostButton = ({ postId }: { postId: string }) => {
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async () => {
       handleServerActionError(await deletePost(postId))
     },
