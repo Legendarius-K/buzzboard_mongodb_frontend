@@ -9,7 +9,7 @@ import { commentSchema } from '@/lib/schemas'
 import { CreateCommentForm } from '@/components/comment-form'
 import { DeleteCommentButton } from '@/components/delete-comment-button'
 
-export const revalidate = 60 * 15 // 15 min
+export const revalidate = 900;
 
 export default async function PostPage({
   params,
