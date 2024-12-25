@@ -2,7 +2,7 @@ import { getPosts } from '@/lib/queries'
 import { HomePosts } from '@/components/home-posts'
 import { auth } from '@/lib/auth'
 
-export const revalidate = 900 // 15 min
+export const revalidate = 900; 
 
 const limit = 10
 
